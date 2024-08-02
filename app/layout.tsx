@@ -7,8 +7,8 @@ import "./globals.css";
 const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Admin rentalCars",
-  description: "rentalCars admin page",
+  title: "AutoExpress",
+  description: "AutoExpress es una página web para alquilar autos",
 };
 
 export default function RootLayout({

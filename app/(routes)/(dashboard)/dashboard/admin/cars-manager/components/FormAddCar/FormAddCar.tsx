@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 import { formSchema } from "./FormAddCar.form";
 
@@ -24,8 +25,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { UploadButton } from "@/utils/uploadthing";
 
 export function FormAddCar() {
+  const [photoUploaded, setPhotoUploaded] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -175,6 +179,34 @@ export function FormAddCar() {
                     <SelectItem value="deluxe">Deluxe</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="photo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Car Image</FormLabel>
+                <FormControl>
+                  {photoUploaded ? (
+                    <p className="text-sm">Image uploaded!</p>
+                  ) : (
+                    <UploadButton
+                      className="rounded-lg bg-slate-600/20 text-slate-800 outline-dotted outline-3"
+                      {...field}
+                      endpoint="photo"
+                      onClientUploadComplete={(res) => {
+                        form.setValue("photo", res?.[0].url);
+                        setPhotoUploaded(true);
+                      }}
+                      onUploadError={(error) => {
+                        console.log(error);
+                      }}
+                    />
+                  )}
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}

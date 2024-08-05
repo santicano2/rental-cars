@@ -2,17 +2,34 @@
 
 import { Fuel, Gauge, Gem, Trash, Upload, Users, Wrench } from "lucide-react";
 import Image from "next/image";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import { CardCarProps } from "./CardCar.types";
 
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 
 import { ButtonEditCar } from "./ButtonEditCar";
 
 export function CardCar(props: CardCarProps) {
   const { car } = props;
+  const router = useRouter();
+
+  const deleteCar = async () => {
+    try {
+      await axios.delete(`/api/car/${car.id}`);
+      toast({
+        title: "Car deleted ❎",
+      });
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: "Something went wrong.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="relative p-1 bg-white rounded-lg shadow-md hover:shadow-lg flex flex-col justify-between">
@@ -67,7 +84,7 @@ export function CardCar(props: CardCarProps) {
         </div>
 
         <div className="flex justify-between mt-3 gap-x-4">
-          <Button variant="outline" onClick={() => console.log("delete")}>
+          <Button variant="outline" onClick={deleteCar}>
             Delete
             <Trash className="w-4 h-4 ml-2" />
           </Button>

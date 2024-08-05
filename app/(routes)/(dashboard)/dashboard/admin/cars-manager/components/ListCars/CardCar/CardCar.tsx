@@ -15,7 +15,7 @@ export function CardCar(props: CardCarProps) {
   const { car } = props;
 
   return (
-    <div className="relative p-1 bg-white rounded-lg shadow-md hover:shadow-lg">
+    <div className="relative p-1 bg-white rounded-lg shadow-md hover:shadow-lg flex flex-col justify-between">
       <Image
         src={car.photo}
         alt={car.name}

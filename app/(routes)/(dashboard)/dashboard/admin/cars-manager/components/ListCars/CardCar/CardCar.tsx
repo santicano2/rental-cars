@@ -31,6 +31,23 @@ export function CardCar(props: CardCarProps) {
     }
   };
 
+  const handlePublishCar = async (publish: boolean) => {
+    try {
+      await axios.patch(`/api/car/${car.id}`, { isPublish: publish });
+      toast({
+        title: `Car ${
+          publish ? "published ✅" : "unpublished ❎"
+        } successfully!`,
+      });
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: "Something went wrong.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="relative p-1 bg-white rounded-lg shadow-md hover:shadow-lg flex flex-col justify-between">
       <Image
@@ -41,11 +58,11 @@ export function CardCar(props: CardCarProps) {
         className="rounded-lg"
       />
       {car.isPublish ? (
-        <p className="absolute top-0 right-0 p-1 text-center text-white bg-green-700">
+        <p className="absolute top-0 right-0 w-full p-1 text-center text-white bg-green-700 rounded-t-lg">
           Published
         </p>
       ) : (
-        <p className="absolute top-0 right-0 w-full p-1 text-center text-white bg-red-300">
+        <p className="absolute top-0 right-0 w-full p-1 text-center text-white bg-red-300 rounded-t-lg">
           Not published
         </p>
       )}
@@ -96,7 +113,7 @@ export function CardCar(props: CardCarProps) {
           <Button
             className="w-full mt-3"
             variant="outline"
-            onClick={() => console.log("Unpublish")}
+            onClick={() => handlePublishCar(false)}
           >
             Unpublish
             <Upload className="w-4 h-4 ml-2" />
@@ -104,7 +121,7 @@ export function CardCar(props: CardCarProps) {
         ) : (
           <Button
             className="w-full mt-3"
-            onClick={() => console.log("Publish")}
+            onClick={() => handlePublishCar(true)}
           >
             Publish
             <Upload className="w-4 h-4 ml-2" />

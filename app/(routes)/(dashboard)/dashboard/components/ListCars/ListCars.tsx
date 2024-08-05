@@ -6,6 +6,8 @@ import Image from "next/image";
 
 import { ListCarsProps } from "./ListCars.types";
 
+import { ModalAddReservation } from "@/components/Shared/ModalAddReservation";
+
 export function ListCars(props: ListCarsProps) {
   const { cars } = props;
 
@@ -62,7 +64,7 @@ export function ListCars(props: ListCarsProps) {
               </p>
 
               <div className="flex items-center justify-center gap-x-3">
-                <p>Modal add reservation...</p>
+                <ModalAddReservation car={car} />
                 <Heart
                   className="mt-2 cursor-pointer"
                   onClick={() => console.log("heart")}

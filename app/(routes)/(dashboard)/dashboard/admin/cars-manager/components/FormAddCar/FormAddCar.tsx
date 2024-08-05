@@ -49,6 +49,8 @@ export function FormAddCar() {
     console.log(values);
   };
 
+  const { isValid } = form.formState;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -211,8 +213,23 @@ export function FormAddCar() {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="priceDay"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Price per Day</FormLabel>
+                <FormControl>
+                  <Input placeholder="$20 USD" type="number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="w-full mt-5" disabled={!isValid}>
+          Add car
+        </Button>
       </form>
     </Form>
   );

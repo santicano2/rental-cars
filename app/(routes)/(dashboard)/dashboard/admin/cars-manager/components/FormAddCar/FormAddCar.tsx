@@ -4,14 +4,16 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 import { formSchema } from "./FormAddCar.form";
+import { FormAddCarProps } from "./FormAddCar.types";
 
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,8 +28,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { UploadButton } from "@/utils/uploadthing";
+import { toast } from "@/components/ui/use-toast";
 
-export function FormAddCar() {
+export function FormAddCar(props: FormAddCarProps) {
+  const { setOpenDialog } = props;
+  const router = useRouter();
+
   const [photoUploaded, setPhotoUploaded] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -46,7 +52,19 @@ export function FormAddCar() {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    setOpenDialog(false);
+    try {
+      await axios.post("/api/car", values);
+      toast({
+        title: "Car added successfully ✅",
+      });
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: "Something went wrong.",
+        variant: "destructive",
+      });
+    }
   };
 
   const { isValid } = form.formState;

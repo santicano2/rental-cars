@@ -18,7 +18,7 @@ export function ButtonAddCar() {
   const [openDialog, setOpenDialog] = useState(false);
 
   return (
-    <Dialog open={openDialog}>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>
         <Button variant="outline" onClick={() => setOpenDialog(true)}>
           Add new car
@@ -28,7 +28,7 @@ export function ButtonAddCar() {
       <DialogContent>
         <DialogHeader>
           <DialogDescription>
-            <FormAddCar />
+            <FormAddCar setOpenDialog={setOpenDialog} />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

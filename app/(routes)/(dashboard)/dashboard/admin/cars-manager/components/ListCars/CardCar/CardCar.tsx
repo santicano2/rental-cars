@@ -9,6 +9,8 @@ import { CardCarProps } from "./CardCar.types";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
+import { ButtonEditCar } from "./ButtonEditCar";
+
 export function CardCar(props: CardCarProps) {
   const { car } = props;
 
@@ -70,7 +72,7 @@ export function CardCar(props: CardCarProps) {
             <Trash className="w-4 h-4 ml-2" />
           </Button>
 
-          <p>Button edit car...</p>
+          <ButtonEditCar carData={car} />
         </div>
 
         {car.isPublish ? (

@@ -24,17 +24,30 @@ export function TableReserves(props: TableReservesProps) {
       <TableCaption>A list of recent reservations</TableCaption>
       <TableHeader>
         <TableRow>
+          <TableHead>Order date</TableHead>
+          <TableHead>Customer ID</TableHead>
           <TableHead>Car</TableHead>
           <TableHead>Date start</TableHead>
           <TableHead>Date end</TableHead>
-          <TableHead>Status</TableHead>
           <TableHead className="text-right">Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {orders.map((order) => (
           <TableRow key={order.id}>
-            <TableCell className="font-medium">{order.carName}</TableCell>
+            <TableCell className="font-medium">
+              {new Date(order.createdAt).toLocaleDateString("es-ES", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </TableCell>
+            <TableCell className="font-medium max-w-[100px] truncate">
+              {order.userId}
+            </TableCell>
+            <TableCell className="font-medium truncate">
+              {order.carName}
+            </TableCell>
             <TableCell>
               {new Date(order.orderDate).toLocaleDateString("es-ES", {
                 day: "2-digit",
@@ -49,11 +62,6 @@ export function TableReserves(props: TableReservesProps) {
                 year: "numeric",
               })}
             </TableCell>
-            <TableCell>
-              <div className="p-2 text-white bg-green-600 rounded-lg w-fit capitalize">
-                {order.status}
-              </div>
-            </TableCell>
             <TableCell className="text-right">
               {formatPrice(Number(order.totalAmount))}
             </TableCell>
@@ -62,7 +70,7 @@ export function TableReserves(props: TableReservesProps) {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={4}>Total</TableCell>
+          <TableCell colSpan={5}>Total</TableCell>
           <TableCell className="text-right">
             {formatPrice(totalAmount)}
           </TableCell>

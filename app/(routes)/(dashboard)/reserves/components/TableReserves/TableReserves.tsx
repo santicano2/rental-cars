@@ -1,3 +1,4 @@
+import { formatPrice } from "@/lib/formatPrice";
 import { TableReservesProps } from "./TableReserves.types";
 
 import {
@@ -5,6 +6,7 @@ import {
   TableBody,
   TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -12,6 +14,10 @@ import {
 
 export function TableReserves(props: TableReservesProps) {
   const { orders } = props;
+
+  const totalAmount = orders.reduce((acc, reserve) => {
+    return acc + parseFloat(reserve.totalAmount);
+  }, 0);
 
   return (
     <Table>
@@ -40,10 +46,20 @@ export function TableReserves(props: TableReservesProps) {
                 {order.status}
               </div>
             </TableCell>
-            <TableCell>{order.totalAmount} $</TableCell>
+            <TableCell className="text-right">
+              {formatPrice(Number(order.totalAmount))}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={4}>Total</TableCell>
+          <TableCell className="text-right">
+            {formatPrice(totalAmount)}
+          </TableCell>
+        </TableRow>
+      </TableFooter>
     </Table>
   );
 }

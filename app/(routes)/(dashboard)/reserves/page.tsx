@@ -16,7 +16,7 @@ export default async function PageReserves() {
     return redirect("/");
   }
 
-  const order = await db.order.findMany({
+  const orders = await db.order.findMany({
     where: {
       userId,
     },
@@ -28,7 +28,7 @@ export default async function PageReserves() {
   return (
     <div>
       <h1 className="mb-4 text-3xl">Reserves</h1>
-      {order.length === 0 ? (
+      {orders.length === 0 ? (
         <div className="flex flex-col justify-center gap-4">
           <h2 className="text-xl">You don&apos;t have any reserves</h2>
           <p>Create one in the cars page</p>
@@ -37,7 +37,7 @@ export default async function PageReserves() {
           </Link>
         </div>
       ) : (
-        <TableReserves />
+        <TableReserves orders={orders} />
       )}
     </div>
   );

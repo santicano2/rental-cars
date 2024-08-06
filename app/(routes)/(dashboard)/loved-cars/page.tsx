@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
-import { useAuth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 import { ListLovedCars } from "./components/ListLovedCars";
 
 export default function PageLovedCars() {
-  const { userId } = useAuth();
+  const { userId } = auth();
 
   if (!userId) {
     return redirect("/");

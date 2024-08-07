@@ -6,9 +6,11 @@ import { Heart, User } from "lucide-react";
 import { useAuth, UserButton } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
+import { useLovedCars } from "@/hooks/use-loved-cars";
 
 export function Navbar() {
   const { userId } = useAuth();
+  const { lovedItems } = useLovedCars();
 
   return (
     <div className="max-w-5xl py-5 mx-auto">
@@ -26,7 +28,9 @@ export function Navbar() {
               <Link href="/loved-cars">
                 <Heart
                   strokeWidth={2}
-                  className={`cursor-pointer fill-red-500`}
+                  className={`cursor-pointer ${
+                    lovedItems.length > 0 && "fill-red-500"
+                  }`}
                 />
               </Link>
               <UserButton />

@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 
 import { Navbar } from "@/components/Shared/Navbar";
 import { HeaderCars } from "./components/HeaderCars";
+import { FiltersAndListCars } from "./components/FiltersAndListCars";
 
 export default async function PageCars() {
   const cars = await db.car.findMany({
@@ -19,7 +20,7 @@ export default async function PageCars() {
       <div className="p-6 mx-auto max-w-7xl">
         <HeaderCars />
         <div>
-          <p>Filters and list cars...</p>
+          <FiltersAndListCars cars={cars} />
         </div>
       </div>
     </div>

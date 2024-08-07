@@ -24,7 +24,10 @@ export function Navbar() {
           {userId ? (
             <>
               <Link href="/loved-cars">
-                <Heart strokeWidth={1} className={`cursor-pointer`} />
+                <Heart
+                  strokeWidth={2}
+                  className={`cursor-pointer fill-red-500`}
+                />
               </Link>
               <UserButton />
             </>

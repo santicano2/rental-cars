@@ -32,7 +32,7 @@ export default async function PageReserves() {
         <div className="flex flex-col justify-center gap-4">
           <h2 className="text-xl">You don&apos;t have any reserves</h2>
           <p>Create one in the cars page</p>
-          <Link href="/dashboard">
+          <Link href="/cars">
             <Button>Go to cars</Button>
           </Link>
         </div>

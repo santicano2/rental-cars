@@ -11,6 +11,7 @@ import { ListCarsProps } from "./ListCars.types";
 
 import { ModalAddReservation } from "@/components/Shared/ModalAddReservation";
 import { Button } from "@/components/ui/button";
+import { SkeletonCars } from "@/components/Shared/SkeletonCars";
 
 export function ListCars(props: ListCarsProps) {
   const { cars } = props;
@@ -19,7 +20,7 @@ export function ListCars(props: ListCarsProps) {
   const { addLoveItem, lovedItems, removeLovedItem } = useLovedCars();
 
   if (!cars) {
-    return <p>Skeleton...</p>;
+    return <SkeletonCars />;
   }
 
   return (
